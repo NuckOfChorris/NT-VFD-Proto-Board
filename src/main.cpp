@@ -3,13 +3,18 @@
 #include <Adafruit_SPIDevice.h>
 #include "config.h"
 
+
 void charge_pump_init(void);
+void error_spi(void);
 
 
 void setup() {
   pinMode(LED_RED, OUTPUT);
   pinMode(VFD_FIL_ENA, OUTPUT);
+  pinMode(VFD_GRID_ENA, OUTPUT);
+  pinMode(VFD_DP_ENA, OUTPUT);
   digitalWrite(VFD_FIL_ENA, HIGH);
+  digitalWrite(LED_RED, HIGH);
   charge_pump_init();
   Adafruit_SPIDevice SPI_ADC = Adafruit_SPIDevice(ADC_NCS);
   Adafruit_SPIDevice SPI_POT = Adafruit_SPIDevice(POT_NCS);
@@ -20,14 +25,25 @@ void setup() {
   if (!SPI_POT.begin()) {
     error_spi();
   }
-  
+
 }
 
 void loop() {
-  digitalWrite(LED_RED, HIGH);
-  delay(800);
-  digitalWrite(LED_RED, LOW);
-  delay(80);
+  digitalWrite(VFD_GRID_ENA, HIGH);
+  digitalWrite(VFD_DP_ENA, HIGH);
+  delay(250);
+  digitalWrite(VFD_DP_ENA, LOW);
+  delay(250);
+  digitalWrite(VFD_GRID_ENA, LOW);
+  digitalWrite(VFD_DP_ENA, HIGH);
+  delay(250);
+  digitalWrite(VFD_DP_ENA, LOW);
+  delay(250);
+
+  // digitalWrite(LED_RED, HIGH);
+  // delay(800);
+  // digitalWrite(LED_RED, LOW);
+  // delay(80);
 }
 
 
