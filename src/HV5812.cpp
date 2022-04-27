@@ -28,9 +28,20 @@ HV5812::HV5812(uint8_t dataPin, uint8_t clkPin, uint8_t latPin, uint8_t blkPin) 
     init();
 }
 
-void HV5812::shiftByte(uint8_t* pData) {
-    for (uint8_t i = 0; i < 8; i++) {
-        digitalWrite(dat, *pData & (1 << i));
+void HV5812::shiftByte(uint8_t data) {
+    for (uint8_t i = 7; i > 0; i--) {
+        digitalWrite(dat, data & (1 << i));
+        digitalWrite(clk, HIGH);
+        digitalWrite(clk, LOW);
+    }
+    digitalWrite(dat, LOW);
+    digitalWrite(lat, HIGH);
+    digitalWrite(lat, LOW);
+}
+
+void HV5812::shiftBits(uint8_t data, uint8_t n) {
+    for (uint8_t i = 0; i < n; i++) {
+        digitalWrite(dat, data & (1 << (n - i)));
         digitalWrite(clk, HIGH);
         digitalWrite(clk, LOW);
     }

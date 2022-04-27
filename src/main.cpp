@@ -8,6 +8,7 @@
 void charge_pump_init(void);
 void error_spi(void);
 
+HV5812 foo(SR_DIN, SR_CLK, SR_LAT, SR_BLK);
 
 void setup() {
   pinMode(LED_RED, OUTPUT);
@@ -27,19 +28,43 @@ void setup() {
     error_spi();
   }
 
+  delay(1000);
+  foo.shiftByte(MSK_CLEAR);
+  digitalWrite(VFD_GRID_ENA, HIGH);
 }
 
 void loop() {
-  digitalWrite(VFD_GRID_ENA, HIGH);
-  digitalWrite(VFD_DP_ENA, HIGH);
-  delay(250);
-  digitalWrite(VFD_DP_ENA, LOW);
-  delay(250);
-  digitalWrite(VFD_GRID_ENA, LOW);
-  digitalWrite(VFD_DP_ENA, HIGH);
-  delay(250);
-  digitalWrite(VFD_DP_ENA, LOW);
-  delay(250);
+  foo.shiftByte(MSK_0);
+  delay(500);
+  foo.shiftByte(MSK_1);
+  delay(500);
+  foo.shiftByte(MSK_2);
+  delay(500);
+  foo.shiftByte(MSK_3);
+  delay(500);
+  foo.shiftByte(MSK_4);
+  delay(500);
+  foo.shiftByte(MSK_5);
+  delay(500);
+  foo.shiftByte(MSK_6);
+  delay(500);
+  foo.shiftByte(MSK_7);
+  delay(500);
+  foo.shiftByte(MSK_8);
+  delay(500);
+  foo.shiftByte(MSK_9);
+  delay(500);
+
+  // digitalWrite(VFD_GRID_ENA, HIGH);
+  // digitalWrite(VFD_DP_ENA, HIGH);
+  // delay(250);
+  // digitalWrite(VFD_DP_ENA, LOW);
+  // delay(250);
+  // digitalWrite(VFD_GRID_ENA, LOW);
+  // digitalWrite(VFD_DP_ENA, HIGH);
+  // delay(250);
+  // digitalWrite(VFD_DP_ENA, LOW);
+  // delay(250);
 
   // digitalWrite(LED_RED, HIGH);
   // delay(800);

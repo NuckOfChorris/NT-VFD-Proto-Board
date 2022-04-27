@@ -23,7 +23,8 @@ class HV5812 {
     public:
     HV5812(uint8_t dataPin, uint8_t clkPin, uint8_t latPin);
     HV5812(uint8_t dataPin, uint8_t clkPin, uint8_t latPin, uint8_t blkPin);
-    void shiftByte(uint8_t* pData);
+    void shiftByte(uint8_t data);
+    void HV5812::shiftBits(uint8_t data, uint8_t n);
 
     private:
     uint8_t dat;
