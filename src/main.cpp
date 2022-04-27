@@ -28,32 +28,42 @@ void setup() {
     error_spi();
   }
 
-  delay(1000);
-  foo.shiftByte(MSK_CLEAR);
-  digitalWrite(VFD_GRID_ENA, HIGH);
+  //foo.shiftByte(MSK_CLEAR);
+  foo.shiftByte(MSK_0);
+  analogWrite(VFD_GRID_ENA, 0);
+  //digitalWrite(VFD_DP_ENA, HIGH);
 }
 
 void loop() {
-  foo.shiftByte(MSK_0);
-  delay(500);
-  foo.shiftByte(MSK_1);
-  delay(500);
-  foo.shiftByte(MSK_2);
-  delay(500);
-  foo.shiftByte(MSK_3);
-  delay(500);
-  foo.shiftByte(MSK_4);
-  delay(500);
-  foo.shiftByte(MSK_5);
-  delay(500);
-  foo.shiftByte(MSK_6);
-  delay(500);
-  foo.shiftByte(MSK_7);
-  delay(500);
-  foo.shiftByte(MSK_8);
-  delay(500);
-  foo.shiftByte(MSK_9);
-  delay(500);
+  for (uint16_t i = 0; i < 255; i++) {
+    analogWrite(VFD_GRID_ENA, i);
+    delay(8);
+  }
+  for (uint16_t j = 0; j < 255; j++) {
+    analogWrite(VFD_GRID_ENA, 255 - j);
+    delay(8);
+  }
+
+  // foo.shiftByte(MSK_0);
+  // delay(500);
+  // foo.shiftByte(MSK_1);
+  // delay(500);
+  // foo.shiftByte(MSK_2);
+  // delay(500);
+  // foo.shiftByte(MSK_3);
+  // delay(500);
+  // foo.shiftByte(MSK_4);
+  // delay(500);
+  // foo.shiftByte(MSK_5);
+  // delay(500);
+  // foo.shiftByte(MSK_6);
+  // delay(500);
+  // foo.shiftByte(MSK_7);
+  // delay(500);
+  // foo.shiftByte(MSK_8);
+  // delay(500);
+  // foo.shiftByte(MSK_9);
+  // delay(500);
 
   // digitalWrite(VFD_GRID_ENA, HIGH);
   // digitalWrite(VFD_DP_ENA, HIGH);
