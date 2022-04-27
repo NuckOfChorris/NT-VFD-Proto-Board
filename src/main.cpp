@@ -2,6 +2,7 @@
 #include <Wire.h>
 #include <Adafruit_SPIDevice.h>
 #include "config.h"
+#include "HV5812.h"
 
 
 void charge_pump_init(void);
