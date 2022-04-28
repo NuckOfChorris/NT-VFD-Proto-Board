@@ -20,16 +20,16 @@
 #define FLASH_DURATION_10S 10000
 
 /** BITMASKS **/
-#define MSK_0 0b11110110
-#define MSK_1 0b10000010
-#define MSK_2 0b01101110
-#define MSK_3 0b11001110
-#define MSK_4 0b10011010
-#define MSK_5 0b11011100
-#define MSK_6 0b11111100
-#define MSK_7 0b10000110
-#define MSK_8 0b11111110
-#define MSK_9 0b11011110
+#define MSK_0 0b1111011
+#define MSK_1 0b1000001
+#define MSK_2 0b0110111
+#define MSK_3 0b1100111
+#define MSK_4 0b1001101
+#define MSK_5 0b1101110
+#define MSK_6 0b1111110
+#define MSK_7 0b1000011
+#define MSK_8 0b1111111
+#define MSK_9 0b1101111
 #define MSK_CLEAR 0b0000000
 
 /** PIN CONFIGURATION **/

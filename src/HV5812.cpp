@@ -39,9 +39,9 @@ void HV5812::shiftByte(uint8_t data) {
     digitalWrite(lat, LOW);
 }
 
-void HV5812::shiftBits(uint8_t data, uint8_t n) {
-    for (uint8_t i = 0; i < n; i++) {
-        digitalWrite(dat, data & (1 << (n - i)));
+void HV5812::write7Seg(uint8_t data) {
+    for (uint8_t i = 0; i < 7; i++) {
+        digitalWrite(dat, data & (1 << (6 - i)));
         digitalWrite(clk, HIGH);
         digitalWrite(clk, LOW);
     }
@@ -49,6 +49,13 @@ void HV5812::shiftBits(uint8_t data, uint8_t n) {
     digitalWrite(lat, HIGH);
     digitalWrite(lat, LOW);
 }
+
+// void HV5812::writeDigit(uint8_t d) {
+//     switch d {
+//         case 0:
+//             write7Seg(MSK_0);
+//     }
+// }
 
 void HV5812::init(void) {
     pinMode(dat, OUTPUT);

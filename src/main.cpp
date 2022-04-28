@@ -8,15 +8,20 @@
 void charge_pump_init(void);
 void error_spi(void);
 
-HV5812 foo(SR_DIN, SR_CLK, SR_LAT, SR_BLK);
+HV5812 SR(SR_DIN, SR_CLK, SR_LAT, SR_BLK);
+uint8_t digits[] = {MSK_0, MSK_1, MSK_2, MSK_3, MSK_4,
+                    MSK_5, MSK_6, MSK_7, MSK_8, MSK_9};
 
 void setup() {
   pinMode(LED_RED, OUTPUT);
+  pinMode(LED_GREEN, OUTPUT);
   pinMode(VFD_FIL_ENA, OUTPUT);
   pinMode(VFD_GRID_ENA, OUTPUT);
   pinMode(VFD_DP_ENA, OUTPUT);
-  digitalWrite(VFD_FIL_ENA, HIGH);
   digitalWrite(LED_RED, HIGH);
+  digitalWrite(LED_GREEN, HIGH);
+  //digitalWrite(VFD_FIL_ENA, HIGH);
+  
   charge_pump_init();
   Adafruit_SPIDevice SPI_ADC = Adafruit_SPIDevice(ADC_NCS);
   Adafruit_SPIDevice SPI_POT = Adafruit_SPIDevice(POT_NCS);
@@ -28,53 +33,25 @@ void setup() {
     error_spi();
   }
 
-  //foo.shiftByte(MSK_CLEAR);
-  foo.shiftByte(MSK_0);
-  analogWrite(VFD_GRID_ENA, 0);
+  SR.write7Seg(MSK_CLEAR);
+  analogWrite(VFD_GRID_ENA, 5);
   //digitalWrite(VFD_DP_ENA, HIGH);
 }
 
 void loop() {
-  for (uint16_t i = 0; i < 255; i++) {
-    analogWrite(VFD_GRID_ENA, i);
-    delay(8);
-  }
-  for (uint16_t j = 0; j < 255; j++) {
-    analogWrite(VFD_GRID_ENA, 255 - j);
-    delay(8);
+  for (uint8_t i = 0; i < 10; i++) {
+    SR.write7Seg(digits[i]);
+    delay(1000);
   }
 
-  // foo.shiftByte(MSK_0);
-  // delay(500);
-  // foo.shiftByte(MSK_1);
-  // delay(500);
-  // foo.shiftByte(MSK_2);
-  // delay(500);
-  // foo.shiftByte(MSK_3);
-  // delay(500);
-  // foo.shiftByte(MSK_4);
-  // delay(500);
-  // foo.shiftByte(MSK_5);
-  // delay(500);
-  // foo.shiftByte(MSK_6);
-  // delay(500);
-  // foo.shiftByte(MSK_7);
-  // delay(500);
-  // foo.shiftByte(MSK_8);
-  // delay(500);
-  // foo.shiftByte(MSK_9);
-  // delay(500);
-
-  // digitalWrite(VFD_GRID_ENA, HIGH);
-  // digitalWrite(VFD_DP_ENA, HIGH);
-  // delay(250);
-  // digitalWrite(VFD_DP_ENA, LOW);
-  // delay(250);
-  // digitalWrite(VFD_GRID_ENA, LOW);
-  // digitalWrite(VFD_DP_ENA, HIGH);
-  // delay(250);
-  // digitalWrite(VFD_DP_ENA, LOW);
-  // delay(250);
+  // for (uint16_t i = 0; i < 255; i++) {
+  //   analogWrite(VFD_GRID_ENA, i);
+  //   delay(8);
+  // }
+  // for (uint16_t j = 0; j < 255; j++) {
+  //   analogWrite(VFD_GRID_ENA, 255 - j);
+  //   delay(8);
+  // }
 
   // digitalWrite(LED_RED, HIGH);
   // delay(800);

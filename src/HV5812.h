@@ -24,7 +24,7 @@ class HV5812 {
     HV5812(uint8_t dataPin, uint8_t clkPin, uint8_t latPin);
     HV5812(uint8_t dataPin, uint8_t clkPin, uint8_t latPin, uint8_t blkPin);
     void shiftByte(uint8_t data);
-    void shiftBits(uint8_t data, uint8_t n);
+    void write7Seg(uint8_t data);
 
     private:
     uint8_t dat;
