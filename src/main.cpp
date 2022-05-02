@@ -40,6 +40,9 @@ void setup() {
 
 void loop() {
   for (uint8_t i = 0; i < 10; i++) {
+    uint8_t duty = map(i, 0, 9, 5, 255);
+    analogWrite(VFD_GRID_ENA, duty);
+    analogWrite(LED_RED, 255 - duty);
     SR.write7Seg(digits[i]);
     delay(1000);
   }
