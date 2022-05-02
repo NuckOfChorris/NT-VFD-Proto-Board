@@ -3,6 +3,7 @@
 #include <Adafruit_SPIDevice.h>
 #include "config.h"
 #include "HV5812.h"
+#include "cie1931.h"
 
 
 void charge_pump_init(void);
@@ -11,6 +12,8 @@ void error_spi(void);
 HV5812 SR(SR_DIN, SR_CLK, SR_LAT, SR_BLK);
 uint8_t digits[] = {MSK_0, MSK_1, MSK_2, MSK_3, MSK_4,
                     MSK_5, MSK_6, MSK_7, MSK_8, MSK_9};
+
+float R = (10 * log10(2))/(log10(255));
 
 void setup() {
   pinMode(LED_RED, OUTPUT);
@@ -38,13 +41,15 @@ void setup() {
   //digitalWrite(VFD_DP_ENA, HIGH);
 }
 
+
 void loop() {
   for (uint8_t i = 0; i < 10; i++) {
-    uint8_t duty = map(i, 0, 9, 5, 255);
+    //uint8_t duty = map(i, 0, 9, 5, 255);
+    uint8_t duty = pow (2, (i / R)) - 1;
     analogWrite(VFD_GRID_ENA, duty);
     analogWrite(LED_RED, 255 - duty);
     SR.write7Seg(digits[i]);
-    delay(1000);
+    delay(500);
   }
 
   // for (uint16_t i = 0; i < 255; i++) {
